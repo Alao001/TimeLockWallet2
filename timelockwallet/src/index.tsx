@@ -12,7 +12,7 @@ TimelockWallet.loadArtifact(artifact)
 
 Scrypt.init({
   apiKey:process.env
-  .REACT_APP_API_KEY || 'insert your key',
+  .REACT_APP_API_KEY || 'testnet_Kc6yPayPTPMti3Ss2T87FTlIv6fFWaE0n4N2gAZXE1tFTmie',
   network :bsv.Networks.testnet
 })
 

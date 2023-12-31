@@ -97,7 +97,7 @@ function App() {
           {
               // A request for signer to sign with the private key corresponding to a public key
               pubKeyOrAddrToSign: myPublicKey,
-              lockTime : today - 1
+              lockTime : today 
           } as MethodCallOptions<TimelockWallet>
       );
     
