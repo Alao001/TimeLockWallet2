@@ -1,7 +1,8 @@
 import { writeFileSync } from 'fs'
-import { Timelockwallet } from '../src/contracts/timelockwallet'
-import { privateKey } from './privateKey'
-import { bsv, TestWallet, DefaultProvider, sha256 } from 'scrypt-ts'
+import { TimelockWallet } from '../src/contracts/timelockwallet'
+import { privateKey ,} from './privateKey'
+import { getRandomAddress } from 'scrypt-ts'
+import { bsv, TestWallet, DefaultProvider, sha256, Addr } from 'scrypt-ts'
 
 function getScriptHash(scriptPubKeyHex: string) {
     const res = sha256(scriptPubKeyHex).match(/.{2}/g)
@@ -12,7 +13,7 @@ function getScriptHash(scriptPubKeyHex: string) {
 }
 
 async function main() {
-    await Timelockwallet.compile()
+    await TimelockWallet.compile()
 
     // Prepare signer. 
     // See https://scrypt.io/docs/how-to-deploy-and-call-a-contract/#prepare-a-signer-and-provider
@@ -22,10 +23,17 @@ async function main() {
 
     // TODO: Adjust the amount of satoshis locked in the smart contract:
     const amount = 100
-
-    const instance = new Timelockwallet(
-        // TODO: Pass constructor parameter values.
-        0n
+    const fatherAddr = getRandomAddress() 
+    const motherAddr = getRandomAddress() 
+    const brotherddr = getRandomAddress() 
+     const sisterAddr = getRandomAddress() 
+     const lockTimeMin = Math.round(new Date('2022-12-22').valueOf() / 1000)
+    const instance = new TimelockWallet(
+        Addr(fatherAddr.toByteString()), 
+        Addr(motherAddr.toByteString()), 
+        Addr(brotherddr.toByteString()), 
+        Addr(sisterAddr.toByteString()),
+        BigInt(lockTimeMin)
     )
 
     // Connect to a signer.

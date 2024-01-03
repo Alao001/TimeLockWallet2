@@ -1,7 +1,7 @@
-
+import React from 'react';
 import { TimelockWallet } from './contracts/timelockwallet';
 import { Addr, PandaSigner, ScryptProvider, bsv ,findSig,PubKey,MethodCallOptions, 
-  getRandomAddress, Utils, toHex} from 'scrypt-ts';
+  getRandomAddress, Utils, toHex,} from 'scrypt-ts';
 import { Button } from '@mui/material';
 
 
@@ -97,18 +97,21 @@ function App() {
           {
               // A request for signer to sign with the private key corresponding to a public key
               pubKeyOrAddrToSign: myPublicKey,
-              lockTime : today 
+              lockTime : today - 1
           } as MethodCallOptions<TimelockWallet>
       );
     
-      console.log('contract called: ', callTx.id);
+      console.log('contract called: ', callTx.id)
+      alert('contract called TxId:' + callTx.id)
           
     }  
     catch (error: any) {
-      console.error("Lock time not yet expired: ", error);
+      console.error("Lock time not yet expired: ", error)
+      alert('mature time not yet expire')
     } 
      
   };
+  
   
   return (
     <div className="App">
